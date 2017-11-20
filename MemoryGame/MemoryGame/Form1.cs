@@ -25,6 +25,28 @@ namespace MemoryGame
         public Form1()
         {
             InitializeComponent();
+            AssignIconsToSquare();
+        }
+
+        private void label_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+
+            if (clickedLabel == null)
+            {
+                return;
+            }
+
+            if (clickedLabel.ForeColor == Color.Black)
+            {
+                return;
+            }
+            if (firstClicked == null)
+            {
+                firstClicked = clickedLabel;
+                firstClicked.ForeColor = Color.Black;
+                return;
+            }
         }
 
         private void AssignIconsToSquare()
@@ -46,6 +68,8 @@ namespace MemoryGame
 
                 randomNumber = random.Next(0, icons.Count);
                 label.Text = icons[randomNumber];
+
+                icons.RemoveAt(randomNumber);
             }
         }
     }
