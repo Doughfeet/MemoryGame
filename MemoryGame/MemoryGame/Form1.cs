@@ -55,6 +55,8 @@ namespace MemoryGame
             secondClick = clickedLabel;
             secondClick.ForeColor = Color.Black;
 
+            CheckForWinner();
+
             if (firstClicked.Text == secondClick.Text)
             {
                 firstClicked = null;
@@ -63,8 +65,22 @@ namespace MemoryGame
             }
             else
                 timer1.Start();
+        }
 
+        private void CheckForWinner()
+        {
+            Label label;
+            for (int i = 0; i < tableLayoutPanel1.Controls.Count; i++)
+            {
+                label = tableLayoutPanel1.Controls[i] as Label;
 
+                if (label != null && label.ForeColor == label.BackColor)
+                {
+                    return;
+                }
+            }
+
+            MessageBox.Show("YAY!, congrats!");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
