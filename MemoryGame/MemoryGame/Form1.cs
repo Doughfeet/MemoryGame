@@ -20,7 +20,7 @@ namespace MemoryGame
             "b", "b", "v", "v", "w", "w", "z", "z"
         };
 
-        Label firstClicked, seconodClick;
+        Label firstClicked, secondClick;
 
         public Form1()
         {
@@ -30,6 +30,10 @@ namespace MemoryGame
 
         private void label_Click(object sender, EventArgs e)
         {
+            if (firstClicked != null && secondClick != null)
+            {
+                return;
+            }
             Label clickedLabel = sender as Label;
 
             if (clickedLabel == null)
@@ -47,6 +51,31 @@ namespace MemoryGame
                 firstClicked.ForeColor = Color.Black;
                 return;
             }
+
+            secondClick = clickedLabel;
+            secondClick.ForeColor = Color.Black;
+
+            if (firstClicked.Text == secondClick.Text)
+            {
+                firstClicked = null;
+                secondClick = null;
+
+            }
+            else
+                timer1.Start();
+
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
+            firstClicked.ForeColor = firstClicked.BackColor;
+            secondClick.ForeColor = secondClick.BackColor;
+
+            firstClicked = null;
+            secondClick = null;
         }
 
         private void AssignIconsToSquare()
